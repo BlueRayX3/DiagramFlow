@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="DiagramFlow.API/DiagramFlow.API.csproj" />
+  <Project Path="DiagramFlow.Application/DiagramFlow.Application.csproj" />
+  <Project Path="DiagramFlow.Domain/DiagramFlow.Domain.csproj" />
+  <Project Path="DiagramFlow.Infrastructure/DiagramFlow.Infrastructure.csproj" />
+</Solution>
