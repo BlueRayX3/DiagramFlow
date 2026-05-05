@@ -29,7 +29,10 @@ const mapProfile = (user) => {
   };
 };
 
-export async function getProfile(userId = 1) {
+export async function getProfile(userId) {
+  if (!userId) {
+    return mockProfile;
+  }
   try {
     const response = await fetch(`${USERS_ENDPOINT}/${userId}`, {
       headers: { 'Content-Type': 'application/json' }

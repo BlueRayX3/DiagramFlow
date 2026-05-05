@@ -18,6 +18,7 @@ builder.Services.AddScoped<IDiagramRepository, DiagramRepository>();
 builder.Services.AddScoped<IDiagramHistoryRepository, DiagramHistoryRepository>();
 builder.Services.AddScoped<ICollaboratorRepository, CollaboratorRepository>();
 builder.Services.AddScoped<ITemplateRepository, TemplateRepository>();
+builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
 var app = builder.Build();
 
@@ -30,6 +31,7 @@ app.MapDiagramEndpoints();
 app.MapDiagramHistoryEndpoints();
 app.MapCollaboratorEndpoints();
 app.MapTemplateEndpoints();
+app.MapAuthEndpoints();
 
 app.Run();
 

@@ -41,6 +41,19 @@
   margin-top: 32px;
 }
 
+.hero__auth {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.hero__auth-divider {
+  opacity: 0.6;
+}
+
 .hero__metric {
   padding: 14px 16px;
   border-radius: 16px;
@@ -336,6 +349,104 @@
   font-size: 13px;
 }
 
+.profile-empty {
+  border-style: dashed;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.profile-empty__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.auth {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.auth__grid {
+  width: min(1000px, 100%);
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 32px;
+  align-items: center;
+}
+
+.auth__intro {
+  padding: 24px;
+}
+
+.auth__title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 3vw, 52px);
+  margin: 14px 0 12px;
+  color: var(--text-strong);
+}
+
+.auth__subtitle {
+  color: var(--text-muted);
+  max-width: 420px;
+}
+
+.auth__hint {
+  margin-top: 20px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.auth__link {
+  color: var(--accent-2);
+  text-decoration: none;
+}
+
+.auth__link:hover {
+  color: var(--accent-3);
+}
+
+.auth__card {
+  border: 1px solid var(--border);
+}
+
+.auth__form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth__label {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.auth__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.auth__switch {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.auth__error {
+  margin: 0;
+  font-size: 12px;
+  color: var(--accent-2);
+}
+
+.auth__success {
+  margin: 0;
+  font-size: 12px;
+  color: var(--success);
+}
+
 .skill-list {
   display: flex;
   flex-wrap: wrap;
@@ -352,6 +463,16 @@
   }
 
   .profile-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .auth__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .auth__row {
     grid-template-columns: 1fr;
   }
 }

@@ -60,6 +60,11 @@ export default function Home() {
             </Link>
             <Button variant="ghost" size="lg">Request walkthrough</Button>
           </div>
+          <div className="hero__auth">
+            <Link to="/login" className="auth__link">Login</Link>
+            <span className="hero__auth-divider">or</span>
+            <Link to="/register" className="auth__link">Register</Link>
+          </div>
           <div className="hero__metrics">
             {heroMetrics.map((metric) => (
               <div key={metric.label} className="hero__metric">

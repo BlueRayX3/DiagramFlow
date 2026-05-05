@@ -1,12 +1,16 @@
+import { Link } from 'react-router-dom';
 import Avatar from '../components/ui/avatar';
 import Badge from '../components/ui/badge';
 import Button from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { useProfile } from '../hooks/useProfile';
 import { IconArrowRight } from '../components/icons';
+import { getStoredUser } from '../utils/auth';
 
 export default function Profile() {
-  const { profile } = useProfile(1);
+  const currentUser = getStoredUser();
+  const userId = currentUser?.userId ?? currentUser?.UserId;
+  const { profile, status } = useProfile(userId);
   const activeProfile = profile || {
     name: 'Loading',
     role: 'Profile',
@@ -18,12 +22,45 @@ export default function Profile() {
     skills: []
   };
 
+  if (!userId) {
+    return (
+      <div className="page">
+        <div className="page__header">
+          <div>
+            <h1 className="page__title">Profile</h1>
+            <p className="page__subtitle">Sign in to view your profile details.</p>
+          </div>
+        </div>
+        <Card className="profile-empty">
+          <CardHeader>
+            <CardTitle>No active session</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="page__subtitle">
+              Please log in or create a new account to access your profile.
+            </p>
+            <div className="profile-empty__actions">
+              <Link className="ui-button ui-button--primary ui-button--sm" to="/login">
+                Login
+              </Link>
+              <Link className="ui-button ui-button--outline ui-button--sm" to="/register">
+                Register
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="page">
       <div className="page__header">
         <div>
           <h1 className="page__title">Profile</h1>
-          <p className="page__subtitle">Keep your identity and focus aligned.</p>
+          <p className="page__subtitle">
+            {status === 'loading' ? 'Loading profile data...' : 'Keep your identity and focus aligned.'}
+          </p>
         </div>
         <Button variant="outline" size="sm">
           Edit profile

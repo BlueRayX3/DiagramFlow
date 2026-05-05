@@ -7,6 +7,12 @@ export function useProfile(userId) {
   const [error, setError] = useState(null);
 
   const loadProfile = useCallback(async () => {
+    if (!userId) {
+      setProfile(null);
+      setStatus('idle');
+      setError(null);
+      return;
+    }
     setStatus('loading');
     setError(null);
     try {
