@@ -1,0 +1,357 @@
+.home {
+  padding: 48px 64px 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 72px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 40px;
+  position: relative;
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 4.2vw, 72px);
+  line-height: 1.05;
+  margin: 16px 0 18px;
+  color: var(--text-strong);
+}
+
+.hero__subtitle {
+  color: var(--text-muted);
+  font-size: 17px;
+  margin: 0 0 24px;
+  max-width: 520px;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.hero__metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.hero__metric {
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-soft);
+}
+
+.hero__metric-value {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+.hero__metric-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.hero__panel {
+  position: relative;
+  padding: 28px;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(
+    140deg,
+    rgba(255, 107, 107, 0.18),
+    rgba(20, 19, 26, 0.9)
+  );
+  border: 1px solid rgba(255, 107, 107, 0.2);
+  box-shadow: 0 30px 80px rgba(5, 4, 8, 0.45);
+  overflow: hidden;
+}
+
+.hero__panel::after {
+  content: '';
+  position: absolute;
+  inset: 16px;
+  border-radius: 22px;
+  border: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.hero__panel-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.hero__panel-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(10, 9, 14, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.hero__panel-title {
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+.hero__panel-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.feature-card {
+  padding: 20px;
+  border-radius: 18px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+
+.feature-card .ui-card__header {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.feature-card h3 {
+  font-family: var(--font-display);
+  color: var(--text-strong);
+  margin: 12px 0 8px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  margin: 0;
+  color: var(--text-strong);
+}
+
+.section-subtitle {
+  margin: 6px 0 0;
+  color: var(--text-muted);
+}
+
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-soft);
+}
+
+.activity-item__title {
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+.project-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.project-card__owner {
+  color: var(--text-strong);
+}
+
+.project-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.project-card__health {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.project-card__health-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.project-card__health-dot[data-tone='success'] {
+  background: var(--success);
+}
+
+.project-card__health-dot[data-tone='warning'] {
+  background: var(--warning);
+}
+
+.project-card__health-dot[data-tone='primary'] {
+  background: var(--accent);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filter-button {
+  border: 1px solid transparent;
+}
+
+.filter-button.is-active {
+  border-color: rgba(255, 107, 107, 0.4);
+  background: rgba(255, 107, 107, 0.15);
+  color: var(--text-strong);
+}
+
+.popover {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.popover__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 4, 9, 0.6);
+  border: none;
+  z-index: 20;
+}
+
+.popover__panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: min(360px, 80vw);
+  background: var(--surface-2);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: 18px;
+  box-shadow: 0 24px 50px rgba(6, 4, 10, 0.5);
+  padding: 18px;
+  z-index: 30;
+}
+
+.popover__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.popover__title {
+  margin: 0;
+  font-family: var(--font-display);
+  color: var(--text-strong);
+  font-size: 18px;
+}
+
+.popover__subtitle {
+  margin: 4px 0 0;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.popover__form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.popover__label {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.popover__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.popover__error {
+  margin: 0;
+  font-size: 12px;
+  color: var(--accent-2);
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  gap: 24px;
+}
+
+.profile-card__name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  margin: 14px 0 4px;
+  color: var(--text-strong);
+}
+
+.profile-card__header {
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.profile-card__header .ui-avatar {
+  width: 48px;
+  height: 48px;
+  font-size: 14px;
+}
+
+.profile-card__meta {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (max-width: 1024px) {
+  .home {
+    padding: 32px 20px 64px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+}
