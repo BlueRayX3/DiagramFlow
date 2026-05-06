@@ -3,48 +3,47 @@ using Dapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// React/Frontend arayüzümüz bağlanırken engellenmesin diye CORS (Güvenlik) izni veriyoruz.
+// Güvenlik (CORS) ayarını tek ve temiz bir hale getirdik
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
+    options.AddPolicy("AllowReact", policy =>
         policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
+
 builder.Services.AddControllers();
+
 var app = builder.Build();
 
-app.UseCors("AllowAll");
+app.UseCors("AllowReact");
 
 // appsettings.json'dan veritabanı bağlantı adresini alıyoruz.
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
 
-// /api/projects adresine gidildiğinde SQL sorgusunu çalıştırıp veriyi JSON olarak dönecek endpoint
+// TÜM PROJELERİ GETİR
 app.MapGet("/api/projects", async () =>
 {
     using var connection = new SqlConnection(connectionString);
 
-    // Daha önce test ettiğimiz JOIN sorgusunun aynısı
     var sql = @"
         SELECT 
             p.ProjectID, 
             p.Name AS ProjectName, 
             p.Description,
+            p.OwnerID, -- React'in projeyi kimin sildiğini anlaması için OwnerID'yi de gönderiyoruz
             u.Username AS OwnerName
         FROM Projects p
-        INNER JOIN Users u ON p.OwnerID = u.UserID
-        WHERE p.IsPublic = 1";
+        INNER JOIN Users u ON p.OwnerID = u.UserID";
 
     var projects = await connection.QueryAsync(sql);
     return Results.Ok(projects);
 });
 
-// YENİ ENDPOINT: Belirli bir kullanıcının projelerini ve oluşturulma tarihlerini getirir
+// BELİRLİ KULLANICI PROJELERİNİ GETİR
 app.MapGet("/api/user-projects/{userId}", async (int userId) =>
 {
-    // appsettings.json'dan veritabanı bağlantı adresini tekrar alıyoruz.
     string connString = builder.Configuration.GetConnectionString("DefaultConnection")!;
     using var connection = new SqlConnection(connString);
 
-    // Kullanıcının oluşturduğu projelerin isimlerini ve tarihlerini çeken sorgu
     var sql = @"
         SELECT 
             u.Username,
@@ -54,21 +53,21 @@ app.MapGet("/api/user-projects/{userId}", async (int userId) =>
         INNER JOIN Users u ON p.OwnerID = u.UserID
         WHERE u.UserID = @Id";
 
-    // Dapper, URL'den gelen {userId} değerini güvenli bir şekilde @Id parametresine bağlar.
     var userProjects = await connection.QueryAsync(sql, new { Id = userId });
-
     return Results.Ok(userProjects);
 });
-// YENİ PROJE EKLEME (POST)
+
+// 🚀 İŞTE DÜZELTTİĞİMİZ YER: YENİ PROJE EKLEME (POST)
 app.MapPost("/api/projects", async (NewProject project) =>
 {
     string connString = builder.Configuration.GetConnectionString("DefaultConnection")!;
     using var connection = new SqlConnection(connString);
 
-    // Varsayılan olarak admin_user (OwnerID = 1) adına ve halka açık (IsPublic = 1) ekliyoruz
+    // "1" olan yeri "@OwnerID" olarak değiştirdik! Artık kim giriş yaptıysa onun ID'si yazılacak.
     var sql = @"INSERT INTO Projects (Name, Description, OwnerID, IsPublic, CreatedAt) 
-                VALUES (@Name, @Description, 1, 1, GETDATE())";
+                VALUES (@Name, @Description, @OwnerID, 1, GETDATE())";
 
+    // Gelen modelin içindeki OwnerID'yi SQL'e bağlıyoruz
     await connection.ExecuteAsync(sql, project);
     return Results.Ok();
 });
@@ -86,13 +85,12 @@ app.MapDelete("/api/projects/{id}", async (int id) =>
     }
     catch
     {
-        // Eğer projenin içinde diyagramlar varsa SQL Foreign Key hatası verir, uygulamanın çökmesini önlüyoruz.
         return Results.BadRequest("Bu proje silinemez (İçinde bağlı veriler olabilir).");
     }
 });
+
 app.MapControllers();
 app.Run(); // Bu hep en sonda kalmalı!
 
-// Sayfanın en altına şu modeli ekle (C#'a gelen verinin şablonu)
-public record NewProject(string Name, string Description);
-
+// 🚀 ŞABLONU DA GÜNCELLEDİK: Artık C# React'ten gelen OwnerID verisini de içeri alabiliyor
+public record NewProject(string Name, string Description, int OwnerID);

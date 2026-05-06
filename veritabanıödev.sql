@@ -117,7 +117,6 @@ INSERT INTO Diagrams (ProjectID, CreatedBy, Title, DiagramType, Content, Version
 VALUES
 (1, 1, 'Örnek Veritabanı ER Diyagramı', 'ER', '{"nodes": [], "edges": []}', 1)
 
-USE DiagramFlowDB;
 
 INSERT INTO Diagrams (ProjectID, CreatedBy, Title, DiagramType, Content, Version, UpdatedAt)
 VALUES
@@ -138,6 +137,19 @@ VALUES
 ((SELECT TOP 1 DiagramID FROM Diagrams), 2, '{"nodes": [{"id": "n1", "label": "Users"}], "edges": []}', 'Users tablosu düğümü eklendi.', DATEADD(MINUTE, -10, GETDATE()))
 
 
+ALTER TABLE Users ADD IsVIP BIT NOT NULL DEFAULT 0
+
+CREATE TRIGGER trg_KullaniciVIPGuncelle
+ON Projects
+AFTER INSERT, DELETE
+AS BEGIN
+    UPDATE Users
+    SET IsVIP = CASE 
+        WHEN (SELECT COUNT(*) FROM Projects WHERE Projects.OwnerID = Users.UserID) > 5 THEN 1
+        ELSE 0
+END
+END
+
 
 SELECT * FROM Roles 
 SELECT * FROM Users 
@@ -146,3 +158,4 @@ SELECT * FROM Diagrams
 SELECT * FROM Diagram_History 
 SELECT * FROM Collaborators 
 SELECT * FROM Diagram_Templates
+

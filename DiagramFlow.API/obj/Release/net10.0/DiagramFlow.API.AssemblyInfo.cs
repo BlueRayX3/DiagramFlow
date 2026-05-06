@@ -12,9 +12,9 @@ using System;
 using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("DiagramFlow.API")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+62591a5009e30b43f4844e94f2eeeac9a9692069")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1955656690c052eb0cd2b8b641f329e6eb5809f4")]
 [assembly: System.Reflection.AssemblyProductAttribute("DiagramFlow.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DiagramFlow.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
