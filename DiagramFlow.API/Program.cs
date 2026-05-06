@@ -9,7 +9,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAll", policy =>
         policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
-
+builder.Services.AddControllers();
 var app = builder.Build();
 
 app.UseCors("AllowAll");
@@ -90,7 +90,7 @@ app.MapDelete("/api/projects/{id}", async (int id) =>
         return Results.BadRequest("Bu proje silinemez (İçinde bağlı veriler olabilir).");
     }
 });
-
+app.MapControllers();
 app.Run(); // Bu hep en sonda kalmalı!
 
 // Sayfanın en altına şu modeli ekle (C#'a gelen verinin şablonu)
